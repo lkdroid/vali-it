@@ -33,7 +33,7 @@ class Lesson3Test {
     void sort() {
         int[] x = new int[]{6, 2, 7, 3, 1};
         int[] expectedResult = new int[]{1, 2, 3, 6, 7};
-        assertArrayEquals(expectedResult, Lesson3.sort(x));
+         assertArrayEquals(expectedResult, Lesson3.sort(x));
         assertArrayEquals(new int[0], new int[0]);
         assertArrayEquals(new int[1], new int[1]);
     }

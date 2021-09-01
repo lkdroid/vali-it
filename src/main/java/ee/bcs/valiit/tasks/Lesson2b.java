@@ -1,15 +1,26 @@
 package ee.bcs.valiit.tasks;
 
+import java.sql.SQLOutput;
+import java.util.Arrays;
+
 public class Lesson2b {
 
     public static void main(String[] args) {
         // TODO siia saab kirjutada koodi testimiseks
+        System.out.println(fibonacci(3));
     }
 
     // TODO loe funktsiooni sisendiks on täisarvude massiiv
     // TODO tagasta massiiv mille elemendid on vastupidises järiekorras
     public static int[] reverseArray(int[] inputArray) {
-        return new int[1];
+        int arrayL = inputArray.length;
+        int[] newArray = new int[arrayL];
+        int i = 0;
+        while (i < arrayL) {
+            newArray[i] = inputArray[arrayL - (i + 1)];
+            i++;
+        }
+        return newArray;
     }
 
     // TODO tagasta massiiv mis sisaldab n esimest paaris arvu
@@ -17,22 +28,74 @@ public class Lesson2b {
     // Sisend 5
     // Väljund 2 4 6 8 10
     public static int[] evenNumbers(int n) {
-        return new int[1];
+        int[] newArray = new int[n];
+        int i = 0;
+        while (i < n) {
+            newArray[i] = (i + 1) * 2;
+            i++;
+        }
+        return newArray;
     }
 
     // TODO, leia massiivi kõige väiksem element
-    public static int min(int[] x){
-        return 0;
+    // tema lahendas selle andes muutujale integer.MAX_VALUE ehk suurima integeri väärtuse ning võrdles
+    // esimest numbrit sellega ja määras seega deafultilt väikseimaks (muutuja vaikseim) array esimese numbri
+    //seejärel võrdles järgmisi ning pani väiksema kirja)
+    //
+
+    public static int min(int[] x) {
+        int L = x.length;
+        System.out.println("Massiivi pikkus on: " + L);
+        int i = 0;
+        int vaike = 0;
+        if (x[i] < x[i + 1]) {
+            vaike = x[i];
+        } else {
+            vaike = x[i + 1];
+        }
+        for (i = 2; i < L; i++) {
+            if (vaike > x[i]) {
+                vaike = x[i];
+            }
+            System.out.println(vaike);
+        }
+
+        return vaike;
     }
 
     // TODO, leia massiivi kõige suurem element
-    public static int max(int[] x){
-        return 0;
+    // siin kasutas integer.MIN.VALUE
+    //
+
+    public static int max(int[] x) {
+        int L = x.length;
+        System.out.println("Suurima leidmise massiivi pikkus on: " + L);
+        int i = 0;
+        int suur = 0;
+        if (x[i] > x[i + 1]) {
+            suur = x[i];
+        } else {
+            suur = x[i + 1];
+        }
+        for (i = 2; i < L; i++) {
+            if (suur < x[i]) {
+                suur = x[i];
+            }
+            System.out.println(suur);
+        }
+        System.out.println("Suurim on: " + suur);
+        return suur;
     }
 
     // TODO, leia massiivi kõigi elementide summa
-    public static int sum(int[] x){
-        return 0;
+    public static int sum(int[] x) {
+        int L = x.length;
+        int i = 1;
+        int summa = 0;
+        for (i = 0; i < L; i++) {
+            summa = summa + x[i];
+        }
+        return summa;
     }
 
     // TODO trüki välja korrutustabel mis on x ühikut lai ja y ühikut kõrge
@@ -50,6 +113,23 @@ public class Lesson2b {
     // mis on ja mis võiks olla. Äkki tuleb mõni idee
     public static void multiplyTable(int x, int y) {
 
+        int i = 1;
+        while (i <= x) {
+            System.out.print(i + " ");
+            i++;
+        }
+
+        int j = 2;
+        while (j < y) {
+            System.out.println();
+            int k = 1;
+            while (k <= x) {
+                System.out.print(k * j + " ");
+                k++;
+            }
+            j++;
+        }
+
     }
 
     // TODO
@@ -57,8 +137,21 @@ public class Lesson2b {
     // 0, 1, 1, 2, 3, 5, 8, 13, 21
     // Tagasta fibonacci jada n element. Võid eeldada, et n >= 0
     public static int fibonacci(int n) {
-
-        return 0;
+        int[] fibo = new int[n + 1];
+        if (n == 0) {
+            return 0;
+        } else if (n == 1) {
+            return 1;
+        } else
+            fibo[0] = 0;
+        fibo[1] = 1;
+        System.out.println(fibo[0]);
+        System.out.println(fibo[1]);
+        for (int i = 2; i <= n; i++) {
+            fibo[i] = fibo[i - 1] + fibo[i - 2];
+            System.out.println("Fibo i-s element on: " + fibo[i]);
+        }
+        return fibo[n];
     }
 
     // TODO
@@ -77,7 +170,25 @@ public class Lesson2b {
     // Näiteks sisendi 10 ja 20 puhul on vastus 20
 
     public static int sequence3n(int x, int y) {
-        return 0;
+        int k = 0;
+        int i = 1;
+        for (int j = x; j <= y; j++) {
+            if (i > k) {
+                k = i;
+            }
+            int n = j;
+            i = 1;
+            while (n != 1) {
+                i++;
+                if (n % 2 == 0) {
+                    n = n / 2;
+                } else {
+                    n = n * 3 + 1;
+                }
+            }
+        }
+
+        return k;
     }
 
 

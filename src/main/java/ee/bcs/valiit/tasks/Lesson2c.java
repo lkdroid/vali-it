@@ -26,16 +26,26 @@ public class Lesson2c {
     //  kutsuge iga väärtuse korral välja meetodit getSeqLength
     //  salvestage maha kõige suurem ja funktsiooni lõpus tagastage leitud arv
     public static int sequence3n(int x, int y) {
-        return 0;
-    }
+        int k=0;
+        for (int i=x; i<=y; i++) {
+            int L = getSeqLength(i);
+            if (L>k) {k=L;} }
+            return k;
+            }
 
     // TODO 2
     //  kutsuge välja meetodit nextElement nii kaua kuni vastus tuleb 1
     //  tagastage korduste arv + 1
     //  x = 1 ->1
     //  x = 2 -> 2
-    public static int getSeqLength(int x){
-        return 0;
+    public static int getSeqLength(int x) {
+        int i = 0;
+        while (x != 1) {
+            i++;
+            x = nextElement(x);
+
+        }
+        return i + 1;
     }
 
     // TODO 1
@@ -43,8 +53,14 @@ public class Lesson2c {
     //  x = 1 -> 4
     //  x = 2 -> 1
     //  x = 3 -> 10
-    public static int nextElement(int x){
-        return 0;
+    public static int nextElement(int x) {
+
+        if (x % 2 == 0) {
+            x = x / 2;
+        } else {
+            x = x * 3 + 1;
+        }
+        return x;
     }
 
 }
