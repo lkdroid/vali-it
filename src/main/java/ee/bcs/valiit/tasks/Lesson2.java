@@ -7,8 +7,8 @@ import java.util.Scanner;
 public class Lesson2 {
     public static void main(String[] args) {
         firstN(3);
-
-                // TODO siia saab kirjutada koodi testimiseks
+        sohk();
+        // TODO siia saab kirjutada koodi testimiseks
     }
 
     // TODO tagasta massiiv milles oleks numbrid 1,2,3,4,5
@@ -63,19 +63,22 @@ public class Lesson2 {
     // Väljund: -3, -2, -1, 0
     public static int[] decreasingArray(int n) {
 
-        int[] minuarray4 = new int[Math.abs(n)+1]; //array pikkusega n+1
-        int i=0;
-        if (n>=0) {
-        while (i<=n) {
-            minuarray4[i] = n-i;
-            i++;
-            System.out.println(Arrays.toString(minuarray4));
-        }} else { int m = Math.abs(n);
-            while (i<=m) {
+        int[] minuarray4 = new int[Math.abs(n) + 1]; //array pikkusega n+1
+        int i = 0;
+        if (n >= 0) {
+            while (i <= n) {
+                minuarray4[i] = n - i;
+                i++;
+                System.out.println(Arrays.toString(minuarray4));
+            }
+        } else {
+            int m = Math.abs(n);
+            while (i <= m) {
                 minuarray4[i] = n + i;
                 i++;
                 System.out.println(Arrays.toString(minuarray4));
-            }}
+            }
+        }
 
 
         return minuarray4;
@@ -85,10 +88,45 @@ public class Lesson2 {
     // tagasta massiiv pikkusega n, mille kõigi elementide väärtused on 3
     public static int[] yl3(int n) {
 
-        int[] minuarray5=new int[n];
+        int[] minuarray5 = new int[n];
         int i = 0;
-        while (i<n) {minuarray5[i] = 3; i++;}
+        while (i < n) {
+            minuarray5[i] = 3;
+            i++;
+        }
 
         return minuarray5;
     }
+
+    public static String sohk() {
+        System.out.println("---------Sisesta oma pakkumine, mis numbri arvuti valis: ---------------");
+        int x = 99;
+        int y = 0;
+        while (2 < 4) {
+            System.out.println(x);
+            System.out.println(y);
+            Scanner sisendnr = new Scanner(System.in);
+            int p = sisendnr.nextInt();
+            if (p > x) {
+                System.out.println("Sa juba pakkusid sellest väiksemat numbrit ja see oli liiga suur!");}
+            else if (p<y){
+                System.out.println("Sa juba pakkusid sellest suuremat numbrit ja see oli liiga väike!");}
+            else if (x - p > p - y) {
+                y = p;
+                System.out.println("Liiga väike");
+            } else if (x - p < p - y) {
+                x = p;
+                System.out.println("Liiga suur");
+            } else if (x - p == p - y && x - p != 1) {
+                y = p;
+                System.out.println("Liiga väike");
+            } else {
+                System.out.println("Õige!");
+                break;
+            }
+        }
+return "Mäng läbi!";
+    }
 }
+
+
