@@ -18,10 +18,10 @@ public class BankService {
     @Autowired
     private BankRepository bankRepository;
 
-    public String createSClient(String clientName, String clientAddress) {
-        int IDN = bankRepository.createClientK(clientName, clientAddress);
+    public String createSClient(String firstName, String lastName, String clientAddress) {
+        int IDN = bankRepository.createClientK(firstName, lastName, clientAddress );
         String IDNS = String.valueOf(IDN);
-        return "Panga kasutaja kliendile " + clientName + " ja ID on " + IDNS + " on loodud!";
+        return "Panga kasutaja kliendile " + firstName + lastName + " ja ID on " + IDNS + " on loodud!";
     }
     public String createSAccount(String accNr, int clientId) {
         bankRepository.createRAccount(accNr, clientId);

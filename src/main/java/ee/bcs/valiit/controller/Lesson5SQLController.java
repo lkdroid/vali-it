@@ -1,6 +1,8 @@
 package ee.bcs.valiit.controller;
 
+import ch.qos.logback.core.net.server.Client;
 import ee.bcs.valiit.controller.model.Accounts;
+import ee.bcs.valiit.controller.model.ClientDto;
 import ee.bcs.valiit.controller.model.SampleEmployeeDto;
 import ee.bcs.valiit.service.Bank.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +23,9 @@ public class Lesson5SQLController {
     public String valitegevus() {
         return "Vali ning sisesta järgneva tegevuse number aadressireale: 1 - Sisesta loodav konto ja omaniku nimi number 2 - Sisesta konto balansi vaatamiseks 3 - Sisesta konto ning summa (eralda /-ga) raha lisamiseks  4 - Sisesta konto ja väljavõtmise summa (eralda /-ga) 5 - Sisesta /konto kust raha võetakse/konto kuhu raha kantakse/summa 6 - Sisesta konto number mis lukustada või avada.";
     }
-    @GetMapping("Lesson5/bank/createClient/{clientName}/{clientAddress}")
-    public String createSClient(@PathVariable("clientName") String clientName, @PathVariable("clientAddress") String clientAddress) {
-        return bankService.createSClient(clientName, clientAddress);
+    @PostMapping("Lesson5/bank/createClient/")
+    public String createSClient(@RequestBody ClientDto clientin) {
+        return bankService.createSClient(clientin.getFirstName(), clientin.getLastName(), clientin.getAddress());
 
     }
     @GetMapping("Lesson5/bank/createAccount/{accNr}/{clientId}")

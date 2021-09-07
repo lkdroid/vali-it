@@ -15,10 +15,11 @@ public class BankRepository {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public Integer createClientK(String clientName, String clientAddress){
-        String sql = "INSERT INTO clients (name, address) VALUES (:clientName, :clientAddress)";
+    public Integer createClientK(String firstName, String lastName, String clientAddress){
+        String sql = "INSERT INTO clients (name, lastname, address) VALUES (:firstName, :lastName, :clientAddress)";
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("clientName", clientName);
+        paramMap.put("firstName", firstName);
+        paramMap.put("lastName", lastName);
         paramMap.put("clientAddress", clientAddress);
 
         //tagastab id tabelist clients

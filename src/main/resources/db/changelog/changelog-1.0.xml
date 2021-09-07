@@ -65,4 +65,15 @@
     <changeSet id="202109072" author="Laur">
         <renameColumn tableName="accounts" oldColumnName="clientId" newColumnName="clientid"></renameColumn>
     </changeSet>
+    <changeSet id="202109073" author="Laur">
+        <addColumn tableName="clients">
+            <column name="lastname" type="text"></column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="202109074" author="Laur">
+        <addNotNullConstraint tableName="clients" columnName="name"></addNotNullConstraint>
+        <addNotNullConstraint tableName="clients" columnName="lastname"></addNotNullConstraint>
+        <addNotNullConstraint tableName="clients" columnName="address"></addNotNullConstraint>
+    </changeSet>
 </databaseChangeLog>
+
