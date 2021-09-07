@@ -23,4 +23,46 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="2" author="Laur">
+        <createTable tableName="bank">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"></constraints>
+            </column>
+            <column name="accnr" type="text">
+                <constraints unique="true"></constraints>
+            </column>
+            <column name="name" type="text"></column>
+            <column name="balance" type="double"></column>
+            <column name="lock" type="boolean"></column>
+        </createTable>
+        <createTable tableName="employees">
+            <column name="id" type="int">
+                <constraints unique="true"/>
+            </column>
+            <column name="name" type="text"/>
+            <column name="address" type="text"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="20210907" author="Laur">
+        <createTable tableName="clients">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"></constraints>
+            </column>
+            <column name="name" type="text"></column>
+            <column name="address" type="text"></column>
+        </createTable>
+        <createTable tableName="accounts">
+            <column name="clientId" type="int">
+                <constraints foreignKeyName="fk_clients_id" references="clients(id)"/>
+            </column>
+            <column name="accnr" type="text">
+                <constraints unique="true"></constraints>
+            </column>
+            <column name="balance" type="double"></column>
+            <column name="lock" type="boolean"></column>
+        </createTable>
+    </changeSet>
+    <changeSet id="202109072" author="Laur">
+        <renameColumn tableName="accounts" oldColumnName="clientId" newColumnName="clientid"></renameColumn>
+    </changeSet>
 </databaseChangeLog>

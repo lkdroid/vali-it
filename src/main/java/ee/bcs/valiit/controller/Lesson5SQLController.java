@@ -21,10 +21,14 @@ public class Lesson5SQLController {
     public String valitegevus() {
         return "Vali ning sisesta järgneva tegevuse number aadressireale: 1 - Sisesta loodav konto ja omaniku nimi number 2 - Sisesta konto balansi vaatamiseks 3 - Sisesta konto ning summa (eralda /-ga) raha lisamiseks  4 - Sisesta konto ja väljavõtmise summa (eralda /-ga) 5 - Sisesta /konto kust raha võetakse/konto kuhu raha kantakse/summa 6 - Sisesta konto number mis lukustada või avada.";
     }
+    @GetMapping("Lesson5/bank/createClient/{clientName}/{clientAddress}")
+    public String createSClient(@PathVariable("clientName") String clientName, @PathVariable("clientAddress") String clientAddress) {
+        return bankService.createSClient(clientName, clientAddress);
 
-    @GetMapping("Lesson5/bank/1/{accNr}/{accName}")
-    public String create(@PathVariable("accNr") String accNr, @PathVariable("accName") String accName) {
-        return bankService.createBAccount(accNr, accName);
+    }
+    @GetMapping("Lesson5/bank/createAccount/{accNr}/{clientId}")
+    public String createAccount(@PathVariable("accNr") String accNr, @PathVariable("clientId") int clientId) {
+        return bankService.createSAccount(accNr, clientId);
 
     }
 
