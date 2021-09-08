@@ -1,13 +1,19 @@
 package ee.bcs.valiit.repository;
 
+import ee.bcs.valiit.controller.model.AccountOverview;
+import ee.bcs.valiit.service.Bank.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -37,11 +43,10 @@ public class BankRepository {
         jdbcTemplate.update(sql, paramMap);}
 
     public void createRAccount(String accNr, int clientId) {
-        String sql = "INSERT INTO accounts (accnr, clientid, balance, lock) " + "VALUES (:accNr, :clientid 0, false)";
-        Map<String, String> paramMap = new HashMap<>();
+        String sql = "INSERT INTO accounts (clientid, accnr, balance, lock) " + "VALUES (:clientId, :accNr, 0, false)";
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("accNr", accNr);
-        String idstring = String.valueOf(clientId);
-        paramMap.put("clientid", idstring);
+        paramMap.put("clientId", clientId);
         jdbcTemplate.update(sql, paramMap);
     }
 
@@ -85,5 +90,28 @@ public class BankRepository {
             paramMapUnlock.put("a5", accNr);
             jdbcTemplate.update(sqlLock, paramMapUnlock);
         }
+    }
+    public class BankRowMapper implements RowMapper<AccountOverview> {
+        @Override
+        public AccountOverview mapRow(ResultSet resultSet, int i) throws SQLException {
+            AccountOverview overview = new AccountOverview();
+            overview.setAccnr(resultSet.getString("accnr"));
+            overview.setBalance(resultSet.getString("balance"));
+            overview.setFirstName(resultSet.getString("name"));
+            overview.setLastName(resultSet.getString("lastname"));
+            overview.setAddress(resultSet.getString("address"));
+            return overview;
+        }
+    }
+    public List<AccountOverview> accountROverview(int id) {
+        String sql = "SELECT accnr, balance, name, lastname, address FROM accounts a JOIN clients c ON a.clientid=c.id WHERE a.clientid = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", id);
+        return jdbcTemplate.query(sql, paramMap, new BankRepository.BankRowMapper());
+    }
+    public List<AccountOverview> returnRallaccounts() {
+        String sql = "SELECT accnr, balance, name, lastname, address FROM accounts a JOIN clients c ON a.clientid=c.id";
+        Map<String, Object> paramMap = new HashMap<>();
+        return jdbcTemplate.query(sql, paramMap, new BankRepository.BankRowMapper());
     }
 }

@@ -1,12 +1,18 @@
 package ee.bcs.valiit.service.Bank;
 
+import ee.bcs.valiit.controller.model.AccountOverview;
+import ee.bcs.valiit.controller.model.Accounts;
 import ee.bcs.valiit.repository.BankRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -19,10 +25,11 @@ public class BankService {
     private BankRepository bankRepository;
 
     public String createSClient(String firstName, String lastName, String clientAddress) {
-        int IDN = bankRepository.createClientK(firstName, lastName, clientAddress );
+        int IDN = bankRepository.createClientK(firstName, lastName, clientAddress);
         String IDNS = String.valueOf(IDN);
         return "Panga kasutaja kliendile " + firstName + lastName + " ja ID on " + IDNS + " on loodud!";
     }
+
     public String createSAccount(String accNr, int clientId) {
         bankRepository.createRAccount(accNr, clientId);
         return "Panga konto " + accNr + " on loodud!";
@@ -89,5 +96,14 @@ public class BankService {
 
             return "Konto " + accNr + " on nüüd suletud!";
         }
+    }
+
+
+    public List<AccountOverview> accountSOverview(int id) {
+        return bankRepository.accountROverview(id);
+    }
+
+    public List<AccountOverview> returnSallaccounts() {
+        return bankRepository.returnRallaccounts();
     }
 }

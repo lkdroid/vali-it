@@ -1,6 +1,7 @@
 package ee.bcs.valiit.controller;
 
 import ch.qos.logback.core.net.server.Client;
+import ee.bcs.valiit.controller.model.AccountOverview;
 import ee.bcs.valiit.controller.model.Accounts;
 import ee.bcs.valiit.controller.model.ClientDto;
 import ee.bcs.valiit.controller.model.SampleEmployeeDto;
@@ -10,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -23,11 +25,13 @@ public class Lesson5SQLController {
     public String valitegevus() {
         return "Vali ning sisesta järgneva tegevuse number aadressireale: 1 - Sisesta loodav konto ja omaniku nimi number 2 - Sisesta konto balansi vaatamiseks 3 - Sisesta konto ning summa (eralda /-ga) raha lisamiseks  4 - Sisesta konto ja väljavõtmise summa (eralda /-ga) 5 - Sisesta /konto kust raha võetakse/konto kuhu raha kantakse/summa 6 - Sisesta konto number mis lukustada või avada.";
     }
+
     @PostMapping("Lesson5/bank/createClient/")
     public String createSClient(@RequestBody ClientDto clientin) {
         return bankService.createSClient(clientin.getFirstName(), clientin.getLastName(), clientin.getAddress());
 
     }
+
     @GetMapping("Lesson5/bank/createAccount/{accNr}/{clientId}")
     public String createAccount(@PathVariable("accNr") String accNr, @PathVariable("clientId") int clientId) {
         return bankService.createSAccount(accNr, clientId);
@@ -52,11 +56,22 @@ public class Lesson5SQLController {
 
     @GetMapping("Lesson5/bank/5/{accNr1}/{accNr2}/{sum}")
     public String transfer(@PathVariable("accNr1") String accNr1, @PathVariable("accNr2") String accNr2, @PathVariable("sum") double sum) {
-    return bankService.transferB(accNr1, accNr2, sum);
+        return bankService.transferB(accNr1, accNr2, sum);
     }
+
     @GetMapping("Lesson5/bank/6/{accnr}")
     public String acclock(@PathVariable("accnr") String accnr) {
         return bankService.accLockB(accnr);
     }
-    }
 
+
+    @GetMapping("Lesson5/accountoverview/{id}")
+    public List<AccountOverview> returnaccountoverview(@PathVariable("id") int id) {
+        return bankService.accountSOverview(id);
+
+    }
+    @GetMapping("Lesson5/allaccounts")
+        public List<AccountOverview> returnallaccounts() {
+        return bankService.returnSallaccounts();
+    }
+}
