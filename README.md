@@ -13,10 +13,10 @@
 **Json, REST, Web**: https://docs.google.com/presentation/d/1FiTqVOGw5_vwBcdNqFcb9mDtHq9QViUM/edit?usp=sharing&ouid=113984198037355275739&rtpof=true&sd=true  
 **Request Body, DTO**: https://docs.google.com/presentation/d/1JaaNUCEDh_URn7dRGTZ_wrro40UExqWx/edit?usp=sharing&ouid=113984198037355275739&rtpof=true&sd=true  
 **Objects**: https://docs.google.com/presentation/d/1pws_MES-RBO1hgvEwghUvfb-OWsLyX0V/edit?usp=sharing&ouid=113984198037355275739&rtpof=true&sd=true  
-**SQL**: https://docs.google.com/presentation/d/1h6vB1bwJsZOWe87u1-8Ohuphs5HSj2pa/edit?usp=sharing&ouid=113984198037355275739&rtpof=true&sd=true  
+**SQL**: https://docs.google.com/presentation/d/13lHd8Jn4_WE1KTtzwPlCPjbDJmGo5SsU/edit?usp=sharing&ouid=113984198037355275739&rtpof=true&sd=true  
 **Architecture**: https://docs.google.com/presentation/d/1DX4c6YWyDsqM4IQkJEMB4X62CfVjOQA8/edit?usp=sharing&ouid=113984198037355275739&rtpof=true&sd=true  
-**Liquibase, SQL 2**: https://docs.google.com/presentation/d/1Z8pOQIJ-P-3AXMDNDB8FU8QCuFXPFjZd/edit?usp=sharing&ouid=113984198037355275739&rtpof=true&sd=true  
-**Exceptions**:  
+**Liquibase, SQL 2**: https://docs.google.com/presentation/d/16xA4gzs99iqtoZN3JaEEe4DevloZUfWj/edit?usp=sharing&ouid=113984198037355275739&rtpof=true&sd=true  
+**Exceptions**: https://docs.google.com/presentation/d/1aIg_atuncSBuXpJR2UUsvEhO2qlYYug3/edit?usp=sharing&ouid=113984198037355275739&rtpof=true&sd=true  
 **Security**:  
 **Testing**:  
 ### HTML / CSS
@@ -49,16 +49,18 @@ https://www.codewars.com/kata/5a24a35a837545ab04001614
 https://www.codewars.com/kata/5819f1c3c6ab1b2b28000624  
 https://www.codewars.com/kata/521c2db8ddc89b9b7a0000c1  
 
-## Testid
+## Testid / Ülesanded
 **Test 1**: https://docs.google.com/presentation/d/1OQmRRO5KVAwmgdBIHGwKNqCIgVljOoUW/edit?usp=sharing&ouid=113984198037355275739&rtpof=true&sd=true  
 **Test 2**:  
 **Test 3**:  
 **Test 4**:  
+**Ülesanded**: https://docs.google.com/presentation/d/1jgbGIKujVNI-Fn_sqZNfxz8Ufr0P6xb7/edit?usp=sharing&ouid=113984198037355275739&rtpof=true&sd=true  
 
 ##  Viited
 **Intellije reference card**: https://resources.jetbrains.com/storage/products/intellij-idea/docs/IntelliJIDEA_ReferenceCard.pdf  
 **Java (TTÜ materjalid)**: https://ained.ttu.ee/javadoc/index.html  
 **Git**: https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+**Agile**: https://www.youtube.com/watch?v=a-BOSpxYJ9M&ab_channel=GOTOConferences  
 
 ## Vanad versioonid
 https://www.jetbrains.com/idea/download/other.html
