@@ -17,14 +17,14 @@
 **Architecture**: https://docs.google.com/presentation/d/1DX4c6YWyDsqM4IQkJEMB4X62CfVjOQA8/edit?usp=sharing&ouid=113984198037355275739&rtpof=true&sd=true  
 **Liquibase, SQL 2**: https://docs.google.com/presentation/d/16xA4gzs99iqtoZN3JaEEe4DevloZUfWj/edit?usp=sharing&ouid=113984198037355275739&rtpof=true&sd=true  
 **Exceptions**: https://docs.google.com/presentation/d/1aIg_atuncSBuXpJR2UUsvEhO2qlYYug3/edit?usp=sharing&ouid=113984198037355275739&rtpof=true&sd=true  
-**Security**:  
-**Testing**:  
 ### HTML / CSS
-**HTML, CSS**:  
-**Javascript**:  
-**Fetch and promise**:  
+**HTML, CSS**: https://docs.google.com/presentation/d/1JJ3SZFz3HLu07Jp2Fz4MYAY2EbMkkCt_/edit?usp=sharing&ouid=113984198037355275739&rtpof=true&sd=true  
+**Javascript**:  https://docs.google.com/presentation/d/1cpXlrYxl6Iyf8hRhWkVGhUWfWON8ergR/edit?usp=sharing&ouid=113984198037355275739&rtpof=true&sd=true  
+**Fetch and promise**: https://docs.google.com/presentation/d/1tlsXSEefP1cNHJNCqKr6Y8H6xH5v12G4/edit?usp=sharing&ouid=113984198037355275739&rtpof=true&sd=true  
 **Vue JS**:  
 ### Lisad
+**Security**:  
+**Testing**:  
 **Hibernate, Spring Data**:  
 **Email**:
 **Deploy**:
