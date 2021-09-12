@@ -1,10 +1,7 @@
 package ee.bcs.valiit.controller;
 
 import ch.qos.logback.core.net.server.Client;
-import ee.bcs.valiit.controller.model.AccountOverview;
-import ee.bcs.valiit.controller.model.Accounts;
-import ee.bcs.valiit.controller.model.ClientDto;
-import ee.bcs.valiit.controller.model.SampleEmployeeDto;
+import ee.bcs.valiit.controller.model.*;
 import ee.bcs.valiit.service.Bank.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -73,5 +70,10 @@ public class Lesson5SQLController {
     @GetMapping("Lesson5/allaccounts")
         public List<AccountOverview> returnallaccounts() {
         return bankService.returnSallaccounts();
+    }
+
+    @GetMapping("Lesson5/bank/statement/{a}")
+    public List accountStatement(@PathVariable("a") String accNr) {
+        return bankService.accountSStatement(accNr);
     }
 }

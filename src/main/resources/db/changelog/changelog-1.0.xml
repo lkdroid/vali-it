@@ -75,5 +75,27 @@
         <addNotNullConstraint tableName="clients" columnName="lastname"></addNotNullConstraint>
         <addNotNullConstraint tableName="clients" columnName="address"></addNotNullConstraint>
     </changeSet>
+    <changeSet id="20210909" author="Laur">
+        <createTable tableName="statement">
+            <column name="actionid" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="actionaccnr" type="text">
+                <constraints foreignKeyName="fk_action_account" references="accounts(accnr)"/>
+            </column>
+            <column name="actiontype" type="text"></column>
+            <column name="sum" type="double"/>
+            <column name="newbalance" type="double"></column>
+
+        </createTable>
+    </changeSet>
+    <changeSet id="202109092" author="Laur">
+        <addColumn tableName="statement">
+            <column name="clientid" type="int">
+                <constraints foreignKeyName="fk_action_clientid" references="clients(id)"/>
+            </column>
+        </addColumn>
+
+    </changeSet>
 </databaseChangeLog>
 

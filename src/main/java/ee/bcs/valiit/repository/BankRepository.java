@@ -1,6 +1,8 @@
 package ee.bcs.valiit.repository;
 
 import ee.bcs.valiit.controller.model.AccountOverview;
+import ee.bcs.valiit.controller.model.AccountStatement;
+import ee.bcs.valiit.controller.model.LockBalance;
 import ee.bcs.valiit.service.Bank.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -21,7 +23,7 @@ public class BankRepository {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public Integer createClientK(String firstName, String lastName, String clientAddress){
+    public Integer createClientK(String firstName, String lastName, String clientAddress) {
         String sql = "INSERT INTO clients (name, lastname, address) VALUES (:firstName, :lastName, :clientAddress)";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("firstName", firstName);
@@ -40,7 +42,8 @@ public class BankRepository {
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("clientName", clientName);
         paramMap.put("clientAddress", clientAddress);
-        jdbcTemplate.update(sql, paramMap);}
+        jdbcTemplate.update(sql, paramMap);
+    }
 
     public void createRAccount(String accNr, int clientId) {
         String sql = "INSERT INTO accounts (clientid, accnr, balance, lock) " + "VALUES (:clientId, :accNr, 0, false)";
@@ -91,6 +94,7 @@ public class BankRepository {
             jdbcTemplate.update(sqlLock, paramMapUnlock);
         }
     }
+
     public class BankRowMapper implements RowMapper<AccountOverview> {
         @Override
         public AccountOverview mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -103,15 +107,58 @@ public class BankRepository {
             return overview;
         }
     }
+
     public List<AccountOverview> accountROverview(int id) {
         String sql = "SELECT accnr, balance, name, lastname, address FROM accounts a JOIN clients c ON a.clientid=c.id WHERE a.clientid = :id";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", id);
         return jdbcTemplate.query(sql, paramMap, new BankRepository.BankRowMapper());
     }
+
     public List<AccountOverview> returnRallaccounts() {
         String sql = "SELECT accnr, balance, name, lastname, address FROM accounts a JOIN clients c ON a.clientid=c.id";
         Map<String, Object> paramMap = new HashMap<>();
         return jdbcTemplate.query(sql, paramMap, new BankRepository.BankRowMapper());
+    }
+
+    public class LockBalanceMapper implements RowMapper<LockBalance> {
+        @Override
+        public LockBalance mapRow(ResultSet resultSet, int i) throws SQLException {
+            LockBalance lBStatus = new LockBalance();
+            lBStatus.setLock(resultSet.getBoolean("lock"));
+            lBStatus.setBalance(resultSet.getDouble("balance"));
+            lBStatus.setClientid(resultSet.getInt("clientid"));
+            return lBStatus;
+        }
+    }
+
+    public LockBalance returnRlockbalance(String accNr) {
+        String sql = "SELECT lock, balance, clientid FROM accounts WHERE accnr = :accNr";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("accNr", accNr);
+        return jdbcTemplate.queryForObject(sql, paramMap, new LockBalanceMapper());
+    }
+
+    //See peaks olema nüüd statement baasi kirje loomine väljavõtte jaoks
+    public void insertRStatement(String accNr, String actionType, double actionSum, double newBalance, int clientId) {
+        String sql = "INSERT INTO statement (actionaccnr, actiontype, sum, newbalance, clientid) " + "VALUES (:accNr, :actionType, :actionSum, :newBalance, :clientId )";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("accNr", accNr);
+        paramMap.put("actionType", actionType);
+        paramMap.put("actionSum", actionSum);
+        paramMap.put("newBalance", newBalance);
+        paramMap.put("clientId", clientId);
+        jdbcTemplate.update(sql, paramMap);
+
+        //statement kirje loomise lõpp
+
+    }
+
+    public List accountRStatement(String accNr) {
+        String sql = "SELECT actionaccnr, actiontype, sum, newbalance, clientid FROM statement WHERE actionaccnr = :a1";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("a1", accNr);
+        return jdbcTemplate.queryForList(sql, paramMap);
+
     }
 }
