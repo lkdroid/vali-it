@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Korrutustabel</title>
+    <link rel="stylesheet" href="style.css">
+    <h1>Listi kuvamine</h1>
+
+    <input id="Sample1"/>
+    <input id="Sample2"/>
+
+    <button id="showListButton">Kuva</button>
+    <button id="emptyListButton">Kustuta</button>
+    <table border="1" id="table-rows"></table>
+    <tr>
+        <td></td>
+        <td></td>
+    </tr>
+    </table>
+    <script>
+        let showListButton = document.getElementById("showListButton")
+        let Sample1Script = document.getElementById("Sample1")
+        let Sample2Script = document.getElementById("Sample2")
+        showListButton.onclick = function () {
+            let j = 0
+            while (j <= Sample1Script.value) {
+                let newRow = document.createElement("tr")
+                let k = 1
+                while (k <= Sample2Script.value) {
+                    let column1 = document.createElement("td")
+                    column1.innerText = k * j
+                    k = k + 1
+                    // let column2 = document.createElement("td")
+                    // column2.innerText = Sample2Script.value * (j+1)
+                    newRow.appendChild(column1);
+                }
+                // newRow.appendChild(column2);
+                let table = document.getElementById("table-rows")
+                table.appendChild(newRow);
+                j = j + 1
+            }
+        }
+        let emptyListButton = document.getElementById("emptyListButton")
+        emptyListButton.onclick = function () {
+            let table = document.getElementById("table-rows")
+            table.innerHTML = ""
+
+        }
+
+
+
+    </script>
+
+
+</head>
+<body>
+

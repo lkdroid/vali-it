@@ -1,5 +1,7 @@
 body {background-color: white}
 h1 {color: royalblue}
+h2 {color: royalblue}
+h2 {font-size: 19px}
 p.test {color:darkblue}
 p.test {font-size: 19px}
 /* Style the tab */

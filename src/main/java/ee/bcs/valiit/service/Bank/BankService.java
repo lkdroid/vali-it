@@ -115,12 +115,12 @@ public class BankService {
             String actiontype = "Avamine lukust";
             bankRepository.insertRStatement(accNr, actiontype, 0, 0, lockbalance.getClientid());
             //väljavõtte osa lõpp
-            return "Konto " + accNr + " on nüüd avatud!";
+            return "Account number " + accNr + " has been unlocked!";
 
         } else {
             String actiontype = "Lukustamine";
             bankRepository.insertRStatement(accNr, actiontype, 0, 0, lockbalance.getClientid());
-            return "Konto " + accNr + " on nüüd suletud!";
+            return "Account number " + accNr + " has been LOCKED!";
         }
     }
 
@@ -133,7 +133,7 @@ public class BankService {
         return bankRepository.returnRallaccounts();
     }
 
-    public List accountSStatement(String accNr) {
+    public List<AccountOverview> accountSStatement(String accNr) {
         return bankRepository.accountRStatement(accNr);
     }
 }

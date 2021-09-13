@@ -23,7 +23,7 @@ public class Lesson5SQLController {
         return "Vali ning sisesta järgneva tegevuse number aadressireale: 1 - Sisesta loodav konto ja omaniku nimi number 2 - Sisesta konto balansi vaatamiseks 3 - Sisesta konto ning summa (eralda /-ga) raha lisamiseks  4 - Sisesta konto ja väljavõtmise summa (eralda /-ga) 5 - Sisesta /konto kust raha võetakse/konto kuhu raha kantakse/summa 6 - Sisesta konto number mis lukustada või avada.";
     }
 
-    @PostMapping("Lesson5/bank/createClient/")
+    @PostMapping("Lesson5/bank/createClient")
     public String createSClient(@RequestBody ClientDto clientin) {
         return bankService.createSClient(clientin.getFirstName(), clientin.getLastName(), clientin.getAddress());
 
@@ -73,7 +73,7 @@ public class Lesson5SQLController {
     }
 
     @GetMapping("Lesson5/bank/statement/{a}")
-    public List accountStatement(@PathVariable("a") String accNr) {
+    public List<AccountOverview> accountStatement(@PathVariable("a") String accNr) {
         return bankService.accountSStatement(accNr);
     }
 }

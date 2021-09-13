@@ -97,5 +97,11 @@
         </addColumn>
 
     </changeSet>
+    <changeSet id="20210913" author="Laur">
+        <addColumn tableName="statement">
+            <column name="actiondate" type="date"></column>
+        </addColumn>
+
+    </changeSet>
 </databaseChangeLog>
 

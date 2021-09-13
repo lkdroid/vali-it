@@ -2,90 +2,131 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Minu näidishtml Laur</title>
+    <title>Näidispank 1</title>
     <link rel="stylesheet" href="style.css">
 
 
-    <h1>Tere tulemast PANKA  <img src=""</h1>
-    <p class="test"> Sinu isiklik haldur on: Katkine Pesumasin.
-   <!-- <table align="center">
+    <h1>Tere tulemast PANKA <img src=""></h1>
+    <p class="test"> Sinu isiklik haldur on: Xy Yx.</p>
+    <style>
+        table, th, td {
+            border: solid 1px #DDD;
+            border-collapse: collapse;
+            padding: 2px 3px;
+            text-align: center;
+        }
 
-        <tr>
-            <td><button id="getBalance"> Get balance</button></td>
-            <td><button type="submit"> Deposit money</button></td>
-            <td><button type="submit">Withdraw money</button></td>
-            <td><button type="submit"> Transfer money</button></td>
-            <td><button type="submit"> Lock account</button></td>
-            <td><button type="submit"> Account statement</button></td>
-        </tr></table>-->
-
+        th {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
-<p>
-
-</p>
-
-
-<p>
-    <p>
-</p>
-
-
-
-
-
-
 <!-- Tab links -->
 <div class="tab">
-    <button class="tablinks" onclick="openService(event, 'CreateAccount')">Create Account</button>
-    <button class="tablinks" onclick="openService(event, 'GetBalance')">Check Balance</button>
-    <button class="tablinks" onclick="openService(event, 'DepositMoney')">Deposit Money</button>
+    <button class="tablinks" onclick="openService(event, 'CreateClient')">Create new client</button>
+    <button class="tablinks" onclick="openService(event, 'CreateAccount')">Create new account</button>
+    <button class="tablinks" onclick="openService(event, 'GetBalance')">Check balance</button>
+    <button class="tablinks" onclick="openService(event, 'DepositMoney')">Deposit money</button>
+    <button class="tablinks" onclick="openService(event, 'WithdrawMoney')">Withdraw money</button>
+    <button class="tablinks" onclick="openService(event, 'TransferMoney')">Make a transfer</button>
+    <button class="tablinks" onclick="openService(event, 'LockAccount')">Lock / Unlock Account</button>
+    <button class="tablinks" onclick="openService(event, 'AccountStatement')">Account Statement</button>
 </div>
 
 <!-- Tab content -->
-<div id="CreateAccount" class="tabcontent">
-    <h3>Create Account</h3>
-    <p> Enter the number for the account:    <input value="EE" id="accNrCreate"/>
-        <button id="CreateAccount">Create</button>
+<div id="CreateClient" class="tabcontent">
+    <h3>Create new client</h3>
+    <p> Enter first name: <input id="createFirstNameInput"/>
+    <p> Enter last name: <input id="createLastNameInput"/>
+    <p> Enter address: <input id="createAddressInput"/>
+        <button id="createNewClientButton">Create</button>
     <p></p>
-    <span id="displayBalance"></span>
+    <span id="displayCreateClient"></span>
+    <table border="1" id="table-statement"></table>
+    <tr>
+        <td>Account number</td>
+        <td>Type of transaction</td>
+        <td>Sum</td>
+        <td>Balance</td>
+        <td>Client ID</td>
+    </tr>
+    </table>
+
 
     <script>
-        let getBalanceButton = document.getElementById("getBalance");
-        getBalanceButton.onclick = function() {
-            let accNr = document.getElementById("accNr");
-            fetch("Lesson5/bank/2/" + accNr.value)
-                .then (result => result.text())
-                .then (function(data){
+        let createfirstname = document.getElementById("createFirstNameInput");
+        let createlastname = document.getElementById("createLastNameInput");
+        let createaddress = document.getElementById("createAddressInput")
+        let createClientButton = document.getElementById("createNewClientButton");
+        createClientButton.onclick = function () {
+            let clientCreate = {
+                firstName: createfirstname.value,
+                address: createaddress.value,
+                lastName: createlastname.value
+            }
+            fetch("Lesson5/bank/createClient", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(clientCreate)
+            })
+                .then(result => result.text())
+                .then(function (data) {
                     console.log(data);
-                    let displayBalance = document.getElementById("displayBalance");
-                    displayBalance.innerText=data;
+                    let displayCreateClient = document.getElementById("displayCreateClient");
+                    displayCreateClient.innerText = data;
                 })
         }
-
     </script>
 
+
+</div>
+<div id="CreateAccount" class="tabcontent">
+    <h3>Create Account</h3>
+    <p> Enter the number for the account: <input value="EE" id="accNrCreate"/>
+    <p> Enter the client ID for this account: <input id="ClientIdCreateAccount"/>
+        <button id="CreateAccountButton">Create</button>
+        <br><br><br>
+    <h2>
+        <span id="displayAccountCreate"></span></h2>
+
+    <script>
+        let createAccButton = document.getElementById("CreateAccountButton");
+        createAccButton.onclick = function () {
+            let accNrCreate = document.getElementById("accNrCreate");
+            let ClientIdCreateAccount = document.getElementById("ClientIdCreateAccount")
+            fetch("Lesson5/bank/createAccount/" + accNrCreate.value + "/" + ClientIdCreateAccount.value)
+                .then(result => result.text())
+                .then(function (data) {
+                    console.log(data);
+                    let displayAccountCreate = document.getElementById("displayAccountCreate");
+                    displayAccountCreate.innerText = data;
+                })
+        }
+    </script>
 
 
 </div>
 <div id="GetBalance" class="tabcontent">
     <h3>Check Account Balance</h3>
-    Enter the account number:    <input value="EE" id="accNr"/>
-    <button id="getBalance">Check Balance</button>
+    Enter the account number: <input value="EE" id="accNr"/>
+    <button id="getBalanceButton">Check Balance</button>
     <p></p>
     <span id="displayBalance"></span>
 
     <script>
-        let getBalanceButton = document.getElementById("getBalance");
-        getBalanceButton.onclick = function() {
+        let getBalanceButton = document.getElementById("getBalanceButton");
+        getBalanceButton.onclick = function () {
             let accNr = document.getElementById("accNr");
             fetch("Lesson5/bank/2/" + accNr.value)
-                .then (result => result.text())
-                .then (function(data){
+                .then(result => result.text())
+                .then(function (data) {
                     console.log(data);
                     let displayBalance = document.getElementById("displayBalance");
-                    displayBalance.innerText=data;
+                    displayBalance.innerText = data;
                 })
         }
 
@@ -95,9 +136,176 @@
 </div>
 
 <div id="DepositMoney" class="tabcontent">
-    <h3>Tokyo</h3>
-    <p>Tokyo is the capital of Japan.</p>
+    <h3>Deposit funds on the account</h3>
+    <p> Enter the number for the account: <input id="accNrDeposit"/>
+    <p> Enter sum: <input id="sumDeposit" type="number"/>
+        <button id="depositButton">Deposit</button>
+        <br><br><br>
+    <h2>
+        <span id="displayDeposit"></span></h2>
+
+    <script>
+        let depositButtonScript = document.getElementById("depositButton");
+        depositButtonScript.onclick = function () {
+            let depositAccNrScript = document.getElementById("accNrDeposit");
+            let sumDepositScript = document.getElementById("sumDeposit")
+            fetch("Lesson5/bank/3/" + depositAccNrScript.value + "/" + sumDepositScript.value)
+                .then(result => result.text())
+                .then(function (data) {
+                    console.log(data);
+                    let displayDepositScript = document.getElementById("displayDeposit");
+                    displayDepositScript.innerText = data;
+                })
+        }
+    </script>
+
+
 </div>
+
+<div id="WithdrawMoney" class="tabcontent">
+    <h3>Withdraw funds from the account</h3>
+    <p> Enter the number for the account: <input id="accNrWithdraw"/></p>
+    <p> Enter sum to withdraw: <input id="sumWithdraw"/>
+        <button id="withdrawButton">Withdraw</button>
+    </p>
+    <br><br><br>
+    <h2>
+        <span id="displayWithdraw"></span></h2>
+
+    <script>
+        let withdrawButtonScript = document.getElementById("withdrawButton");
+        withdrawButtonScript.onclick = function () {
+            let withdrawAccNrScript = document.getElementById("accNrWithdraw");
+            let sumWithdrawScript = document.getElementById("sumWithdraw")
+            fetch("Lesson5/bank/4/" + withdrawAccNrScript.value + "/" + sumWithdrawScript.value)
+                .then(result => result.text())
+                .then(function (data) {
+                    console.log(data);
+                    let displayWithdrawScript = document.getElementById("displayWithdraw");
+                    displayWithdrawScript.innerText = data;
+                })
+        }
+    </script>
+
+
+</div>
+
+<div id="TransferMoney" class="tabcontent">
+    <h3>Transfer funds from one account to another</h3>
+    <p> Enter the number for the sending account: <input id="accNrTransfer1"/></p>
+    <p> Enter the number for the receiving account: <input id="accNrTransfer2"/></p>
+    <p> Enter sum to transfer: <input id="sumTransfer"/>
+        <button id="transferButton">Transfer sum</button>
+    </p>
+    <br><br><br>
+    <h2>
+        <span id="displayTransfer"></span></h2>
+
+    <script>
+        let transferButtonScript = document.getElementById("transferButton");
+        transferButtonScript.onclick = function () {
+            let transferAccNrScript1 = document.getElementById("accNrTransfer1");
+            let transferAccNrScript2 = document.getElementById("accNrTransfer2");
+            let sumTransferScript = document.getElementById("sumTransfer")
+            fetch("Lesson5/bank/5/" + transferAccNrScript1.value + "/" + transferAccNrScript2.value + "/" + sumTransferScript.value)
+                .then(result => result.text())
+                .then(function (data) {
+                    console.log(data);
+                    let displayTransferScript = document.getElementById("displayTransfer");
+                    displayTransferScript.innerText = data;
+                })
+        }
+    </script>
+</div>
+
+<div id="LockAccount" class="tabcontent">
+    <h3>Lock or unlock your account</h3>
+    Enter the account number: <input value="EE" id="accNrLock"/>
+    <button id="lockAccountButton">Lock / Unlock</button>
+    <p></p>
+    <span id="displayLock"></span>
+
+    <script>
+        let lockButtonScript = document.getElementById("lockAccountButton");
+        lockButtonScript.onclick = function () {
+            let accNrLockScript = document.getElementById("accNrLock");
+            fetch("Lesson5/bank/6/" + accNrLockScript.value)
+                .then(result => result.text())
+                .then(function (data) {
+                    console.log(data);
+                    let displayLockScript = document.getElementById("displayLock");
+                    displayLockScript.innerText = data;
+                })
+        }
+
+    </script>
+
+
+</div>
+<div id="AccountStatement" class="tabcontent">
+    <h3>Show account statement</h3>
+    Enter account number: <input value="EE" id="accNrStatement"/>
+    <button id="statementButton">Show statement</button>
+    <p></p>
+    <span id="displayStatement"></span>
+    <p id="showData"></p>
+
+
+    <script>
+        let statementButtonScript = document.getElementById("statementButton");
+        statementButtonScript.onclick = function () {
+            let statementAccNrScript = document.getElementById("accNrStatement");
+            fetch("Lesson5/bank/statement/" + statementAccNrScript.value)
+                .then(result => result.json())
+                .then(function (data) {
+                    console.log(data);
+
+// EXTRACT VALUE FOR HTML HEADER.
+                    let col = [];
+                    for (let i = 0; i < data.length; i++) {
+                        for (let key in data[i]) {
+                            if (col.indexOf(key) === -1) {
+                                col.push(key);
+                            }
+                        }
+                    }
+
+                    // CREATE DYNAMIC TABLE.
+                    let table = document.createElement("table");
+
+                    // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+
+                    let tr = table.insertRow(-1);                   // TABLE ROW.
+
+                    for (let i = 0; i < col.length; i++) {
+                        let th = document.createElement("th");      // TABLE HEADER.
+                        th.innerHTML = col[i];
+                        tr.appendChild(th);
+                    }
+
+                    // ADD JSON DATA TO THE TABLE AS ROWS.
+                    for (var i = 0; i < data.length; i++) {
+
+                        tr = table.insertRow(-1);
+
+                        for (var j = 0; j < col.length; j++) {
+                            var tabCell = tr.insertCell(-1);
+                            tabCell.innerHTML = data[i][col[j]];
+                        }
+                    }
+                    // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+                    var divContainer = document.getElementById("showData");
+                    divContainer.innerHTML = "";
+                    divContainer.appendChild(table);
+                })
+        }
+
+
+    </script>
+
+
+</div>
+
 <script>
     function openService(evt, cityName) {
         // Declare all variables
@@ -122,7 +330,6 @@
 
 
 </script>
-
 
 
 </bold>

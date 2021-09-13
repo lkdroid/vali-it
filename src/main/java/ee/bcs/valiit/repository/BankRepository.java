@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,13 +142,15 @@ public class BankRepository {
 
     //See peaks olema nüüd statement baasi kirje loomine väljavõtte jaoks
     public void insertRStatement(String accNr, String actionType, double actionSum, double newBalance, int clientId) {
-        String sql = "INSERT INTO statement (actionaccnr, actiontype, sum, newbalance, clientid) " + "VALUES (:accNr, :actionType, :actionSum, :newBalance, :clientId )";
+        String sql = "INSERT INTO statement (actionaccnr, actiontype, sum, newbalance, clientid, actiondate) " + "VALUES (:accNr, :actionType, :actionSum, :newBalance, :clientId, :actionDate )";
         Map<String, Object> paramMap = new HashMap<>();
+        LocalDateTime actionDatetime = java.time.LocalDateTime.now();
         paramMap.put("accNr", accNr);
         paramMap.put("actionType", actionType);
         paramMap.put("actionSum", actionSum);
         paramMap.put("newBalance", newBalance);
         paramMap.put("clientId", clientId);
+        paramMap.put("actionDate", actionDatetime);
         jdbcTemplate.update(sql, paramMap);
 
         //statement kirje loomise lõpp
@@ -155,7 +158,7 @@ public class BankRepository {
     }
 
     public List accountRStatement(String accNr) {
-        String sql = "SELECT actionaccnr, actiontype, sum, newbalance, clientid FROM statement WHERE actionaccnr = :a1";
+        String sql = "SELECT actionaccnr, actiontype, sum, newbalance, clientid, actiondate FROM statement WHERE actionaccnr = :a1";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("a1", accNr);
         return jdbcTemplate.queryForList(sql, paramMap);

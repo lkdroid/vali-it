@@ -1,5 +1,7 @@
 package ee.bcs.valiit.controller.model;
 
+import java.time.LocalDateTime;
+
 public class AccountStatement {
 
     private String actionaccnr;
@@ -7,6 +9,15 @@ public class AccountStatement {
     private Double sum;
     private Double newbalance;
     private Integer clientid;
+    private LocalDateTime actiondate;
+
+    public LocalDateTime getActiondate() {
+        return actiondate;
+    }
+
+    public void setActiondate(LocalDateTime actiondate) {
+        this.actiondate = actiondate;
+    }
 
     public String getActionaccnr() {
         return actionaccnr;
