@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+</head>
+<body>
+
+<input disabled id="answer2"><p>
+<input disabled id="answer"> <p></p>
+<input disabled id="jagamine">
+<input placeholder="Sisesta esimene" id="nr1" type="number">
+<input placeholder="Sisesta teine number" id="nr2">
+<button id="Vajuta" > Vajuta</button>
+<script>
+let proov;
+proov = "\"" + "\\" + "\"" + "\\\\" + "\"\"";
+
+document.getElementById("answer2").value=proov
+document.writeln(proov)
+
+let minButton = document.getElementById("Vajuta");
+minButton.onclick = function() {
+    let a=document.getElementById("nr1").value;
+    let b=document.getElementById("nr2").value;
+    if (a % 2 == 0) {
+        document.getElementById("jagamine").value = a ;
+
+    }
+    else document.getElementById("jagamine").value= false ;
+
+
+}
+
+
+</script>
+
+

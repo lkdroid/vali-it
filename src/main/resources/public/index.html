@@ -5,53 +5,123 @@
     <title>Minu näidishtml Laur</title>
     <link rel="stylesheet" href="style.css">
 
+
     <h1>Tere tulemast PANKA  <img src=""</h1>
-    <p></p>
-    <table align="center">
+    <p class="test"> Sinu isiklik haldur on: Katkine Pesumasin.
+   <!-- <table align="center">
+
         <tr>
-            Admin only: <input type="password"> <button type="submit"> All accounts</button></tr>
-        <tr>
-            <td><button type="submit"> Check balance</button></td>
+            <td><button id="getBalance"> Get balance</button></td>
             <td><button type="submit"> Deposit money</button></td>
             <td><button type="submit">Withdraw money</button></td>
             <td><button type="submit"> Transfer money</button></td>
             <td><button type="submit"> Lock account</button></td>
             <td><button type="submit"> Account statement</button></td>
-        </tr></table>
+        </tr></table>-->
 
 </head>
 <body>
 
-<script>alert("Hello World");</script>
+<p>
 
-<p class="test"> Sinu isiklik haldur on: Katkine Pesumasin.
+</p>
+
+
+<p>
+    <p>
+</p>
 
 
 
-        <p>Sisesta konto number ning summa:</p>
+
+
 
 <!-- Tab links -->
 <div class="tab">
-    <button class="tablinks" onclick="openCity(event, 'London')">London</button>
-    <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
-    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+    <button class="tablinks" onclick="openService(event, 'CreateAccount')">Create Account</button>
+    <button class="tablinks" onclick="openService(event, 'GetBalance')">Check Balance</button>
+    <button class="tablinks" onclick="openService(event, 'DepositMoney')">Deposit Money</button>
 </div>
 
 <!-- Tab content -->
-<div id="London" class="tabcontent">
-    <h3>London</h3>
-    <p>London is the capital city of England.</p>
+<div id="CreateAccount" class="tabcontent">
+    <h3>Create Account</h3>
+    <p> Enter the number for the account:    <input value="EE" id="accNrCreate"/>
+        <button id="CreateAccount">Create</button>
+    <p></p>
+    <span id="displayBalance"></span>
+
+    <script>
+        let getBalanceButton = document.getElementById("getBalance");
+        getBalanceButton.onclick = function() {
+            let accNr = document.getElementById("accNr");
+            fetch("Lesson5/bank/2/" + accNr.value)
+                .then (result => result.text())
+                .then (function(data){
+                    console.log(data);
+                    let displayBalance = document.getElementById("displayBalance");
+                    displayBalance.innerText=data;
+                })
+        }
+
+    </script>
+
+
+
+</div>
+<div id="GetBalance" class="tabcontent">
+    <h3>Check Account Balance</h3>
+    Enter the account number:    <input value="EE" id="accNr"/>
+    <button id="getBalance">Check Balance</button>
+    <p></p>
+    <span id="displayBalance"></span>
+
+    <script>
+        let getBalanceButton = document.getElementById("getBalance");
+        getBalanceButton.onclick = function() {
+            let accNr = document.getElementById("accNr");
+            fetch("Lesson5/bank/2/" + accNr.value)
+                .then (result => result.text())
+                .then (function(data){
+                    console.log(data);
+                    let displayBalance = document.getElementById("displayBalance");
+                    displayBalance.innerText=data;
+                })
+        }
+
+    </script>
+
+
 </div>
 
-<div id="Paris" class="tabcontent">
-    <h3>Paris</h3>
-    <p>Paris is the capital of France.</p>
-</div>
-
-<div id="Tokyo" class="tabcontent">
+<div id="DepositMoney" class="tabcontent">
     <h3>Tokyo</h3>
     <p>Tokyo is the capital of Japan.</p>
 </div>
+<script>
+    function openService(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+
+</script>
 
 
 
