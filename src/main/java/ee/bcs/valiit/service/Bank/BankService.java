@@ -136,4 +136,10 @@ public class BankService {
     public List<AccountOverview> accountSStatement(String accNr) {
         return bankRepository.accountRStatement(accNr);
     }
+
+    public String deleteSClient(int id) {
+        bankRepository.deleteRClient(id);
+
+        return "All information about client with ID " + id + " has been deleted.";
+    }
 }

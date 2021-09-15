@@ -76,4 +76,9 @@ public class Lesson5SQLController {
     public List<AccountOverview> accountStatement(@PathVariable("a") String accNr) {
         return bankService.accountSStatement(accNr);
     }
+    @GetMapping("Lesson5/deleteclient/{id}")
+        public String deleteclient(@PathVariable("id") int id){
+        return bankService.deleteSClient(id);
+    }
+
 }

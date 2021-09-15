@@ -1,8 +1,9 @@
 body {background-color: white}
-h1 {color: royalblue}
-h2 {color: royalblue}
+h1 {color: midnightblue}
+h2 {color: black}
+h5 {color: darkred}
 h2 {font-size: 19px}
-p.test {color:darkblue}
+p.test {color:black}
 p.test {font-size: 19px}
 /* Style the tab */
 .tab {
@@ -48,3 +49,5 @@ p.test {font-size: 19px}
     from {opacity: 0;}
     to {opacity: 1;}
 }
+
+

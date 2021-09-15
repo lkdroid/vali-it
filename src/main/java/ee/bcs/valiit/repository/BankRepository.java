@@ -164,4 +164,20 @@ public class BankRepository {
         return jdbcTemplate.queryForList(sql, paramMap);
 
     }
+    public void deleteRClient(int id) {
+        String sqlsts = "DELETE FROM statement WHERE clientid = :statementid";
+        Map<String, Object> paramMapSts = new HashMap<>();
+        paramMapSts.put("statementid", id);
+        jdbcTemplate.update(sqlsts, paramMapSts);
+
+        String sqlaccounts = "DELETE FROM accounts WHERE clientid = :accountid";
+        Map<String, Object> paramMapAccounts = new HashMap<>();
+        paramMapAccounts.put("accountid", id);
+        jdbcTemplate.update(sqlaccounts, paramMapAccounts);
+        String sql = "DELETE FROM clients WHERE id = :clientid";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("clientid", id);
+        jdbcTemplate.update(sql, paramMap);
+    }
+
 }

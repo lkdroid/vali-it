@@ -5,9 +5,9 @@
     <title>Näidispank 1</title>
     <link rel="stylesheet" href="style.css">
 
-
-    <h1>Tere tulemast PANKA <img src=""></h1>
-    <p class="test"> Sinu isiklik haldur on: Xy Yx.</p>
+    <img src="http://simpleicon.com/wp-content/uploads/bank.png" style="width:px;height:100px;">
+    <h1> LEHMAN BROTHERS</h1>
+    <p class="test"> </p>
     <style>
         table, th, td {
             border: solid 1px #DDD;
@@ -32,12 +32,17 @@
     <button class="tablinks" onclick="openService(event, 'WithdrawMoney')">Withdraw money</button>
     <button class="tablinks" onclick="openService(event, 'TransferMoney')">Make a transfer</button>
     <button class="tablinks" onclick="openService(event, 'LockAccount')">Lock / Unlock Account</button>
-    <button class="tablinks" onclick="openService(event, 'AccountStatement')">Account Statement</button>
+
+    <button class="tablinks" onclick="openService(event, 'BadAccountStatement')">Account Statement</button>
+    <button class="tablinks" onclick="openService(event, 'DeleteClient')">Delete client</button>
 </div>
 
 <!-- Tab content -->
 <div id="CreateClient" class="tabcontent">
     <h3>Create new client</h3>
+    <br>
+
+
     <p> Enter first name: <input id="createFirstNameInput"/>
     <p> Enter last name: <input id="createLastNameInput"/>
     <p> Enter address: <input id="createAddressInput"/>
@@ -45,15 +50,6 @@
     <p></p>
     <span id="displayCreateClient"></span>
     <table border="1" id="table-statement"></table>
-    <tr>
-        <td>Account number</td>
-        <td>Type of transaction</td>
-        <td>Sum</td>
-        <td>Balance</td>
-        <td>Client ID</td>
-    </tr>
-    </table>
-
 
     <script>
         let createfirstname = document.getElementById("createFirstNameInput");
@@ -242,14 +238,14 @@
 
 
 </div>
-<div id="AccountStatement" class="tabcontent">
+<!--<div id="AccountStatement" class="tabcontent">
     <h3>Show account statement</h3>
     Enter account number: <input value="EE" id="accNrStatement"/>
     <button id="statementButton">Show statement</button>
     <p></p>
     <span id="displayStatement"></span>
     <p id="showData"></p>
-
+    <button id="emptyListButton">Kustuta</button>
 
     <script>
         let statementButtonScript = document.getElementById("statementButton");
@@ -299,12 +295,117 @@
                     divContainer.appendChild(table);
                 })
         }
+        let emptyListButton = document.getElementById("emptyListButton")
+        emptyListButton.onclick = function () {
+            let table = document.getElementById("showData")
+            table.innerHTML = ""}
+
+
+    </script>
+
+
+</div>-->
+<div id="BadAccountStatement" class="tabcontent">
+    <h3>Show account statement</h3>
+    Enter account number: <input value="EE" id="BadaccNrStatement"/>
+    <button id="BadstatementButton">Show statement</button>
+    <p></p>
+    <span id="BaddisplayStatement"></span>
+    <table id="Badstatementtable"></table>
+    <button id="emptyListButtonBad">Kustuta</button>
+
+    <script>
+        let BadstatementButtonScript = document.getElementById("BadstatementButton");
+        let statementTableBad = document.getElementById("Badstatementtable")
+        BadstatementButtonScript.onclick = function () {
+            let BadstatementAccNrScript = document.getElementById("BadaccNrStatement");
+            fetch("Lesson5/bank/statement/" + BadstatementAccNrScript.value)
+                .then(result => result.json())
+                .then(function (data) {
+                    console.log(data);
+                    let headerRow = document.createElement("tr")
+                    let accnrHeader = document.createElement("th")
+                    let typeHeader = document.createElement("th")
+                    let sumHeader = document.createElement("th")
+                    let newbalanceHeader = document.createElement("th")
+                    let clientHeader = document.createElement("th")
+                    let dateHeader = document.createElement("th")
+                    statementTableBad.appendChild(headerRow)
+                    headerRow.appendChild(accnrHeader)
+                    headerRow.appendChild(typeHeader)
+                    headerRow.appendChild(sumHeader)
+                    headerRow.appendChild(newbalanceHeader)
+                    headerRow.appendChild(clientHeader)
+                    headerRow.appendChild(dateHeader)
+                    accnrHeader.innerText = "Account number"
+                    typeHeader.innerText = "Transaction type"
+                    sumHeader.innerText = "Transaction sum"
+                    newbalanceHeader.innerText = "Balance"
+                    clientHeader.innerText = "Clien ID"
+                    dateHeader.innerText = "Date of transaction"
+                    for (let i=0; i<data.length; i++){
+            let htmlRow = document.createElement("tr")
+                statementTableBad.appendChild(htmlRow)
+
+                        let accnrColumn = document.createElement("td")
+                        let typeColumn = document.createElement("td")
+                        let sumColumn = document.createElement("td")
+                        let newbalanceColumn = document.createElement("td")
+                        let clientColumn = document.createElement("td")
+                        let dateColumn = document.createElement("td")
+                        htmlRow.appendChild(accnrColumn)
+                        htmlRow.appendChild(typeColumn)
+                        htmlRow.appendChild(sumColumn)
+                        htmlRow.appendChild(newbalanceColumn)
+                        htmlRow.appendChild(clientColumn)
+                        htmlRow.appendChild(dateColumn)
+                        accnrColumn.innerText = data[i].actionaccnr
+                        typeColumn.innerText = data[i].actiontype
+                        sumColumn.innerText = data[i].sum
+                        newbalanceColumn.innerText = data[i].newbalance
+                        clientColumn.innerText = data[i].clientid
+                        dateColumn.innerText = data[i].actiondate
+            }
+                })
+        }
+        let emptyListButtonBad = document.getElementById("emptyListButtonBad")
+        emptyListButtonBad.onclick = function () {
+            let table = document.getElementById("Badstatementtable")
+            table.innerHTML = ""
+
+        }
 
 
     </script>
 
 
 </div>
+
+<div id="DeleteClient" class="tabcontent">
+    <h1>Delete</h1> <h5>CLIENT + ACCOUNTS + STATEMENTS</h5>
+    Enter the client number: <input id="clientId"/>
+    <button id="deleteClientButton">Delete all</button>
+    <p></p>
+    <span id="displayDelete"></span>
+
+    <script>
+        let deleteButtonScript = document.getElementById("deleteClientButton");
+        deleteButtonScript.onclick = function () {
+            let clientIdScript = document.getElementById("clientId");
+            fetch("Lesson5/deleteclient/" + clientIdScript.value)
+                .then(result => result.text())
+                .then(function (data) {
+                    console.log(data);
+                    let displayDeleteScript = document.getElementById("displayDelete");
+                    displayDeleteScript.innerText = data;
+                })
+        }
+
+    </script>
+
+
+</div>
+
 
 <script>
     function openService(evt, cityName) {
@@ -334,4 +435,15 @@
 
 </bold>
 </body>
+<footer>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Lehman_Brothers.svg/2560px-Lehman_Brothers.svg.png" style="width:200px;height:18px;">
+
+</footer>
 </html>
