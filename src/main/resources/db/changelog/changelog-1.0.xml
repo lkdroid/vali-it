@@ -103,5 +103,33 @@
         </addColumn>
 
     </changeSet>
+    <changeSet id="20210917" author="Laur">
+        <createTable tableName="cars">
+            <column name="carid" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="number" type="text"/>
+            <column name="make" type="text"/>
+        </createTable>
+
+
+    </changeSet>
+    <changeSet id="202109172" author="Laur">
+        <createTable tableName="rentals">
+            <column name="rentalid" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="carsid" type="int">
+                <constraints foreignKeyName="fk_cars_id" references="cars(carid)"/>
+            </column>
+            <column name="firstname" type="text"></column>
+            <column name="lastname" type="text"></column>
+            <column name="rentfrom" type="date"/>
+            <column name="rentto" type="date"/>
+        </createTable>
+
+
+    </changeSet>
+
 </databaseChangeLog>
 

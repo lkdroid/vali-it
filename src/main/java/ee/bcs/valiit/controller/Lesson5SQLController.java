@@ -69,6 +69,7 @@ public class Lesson5SQLController {
     }
     @GetMapping("Lesson5/allaccounts")
         public List<AccountOverview> returnallaccounts() {
+
         return bankService.returnSallaccounts();
     }
 
